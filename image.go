@@ -47,14 +47,14 @@ func ImgCapacity(img *image.NRGBA) int {
 
 }
 
-func LoadHideFile(path string) (*os.File, error) {
-	file, err := os.Open(path)
+func LoadHideFile(path string) ([]byte, error) {
+	data_stream, err := os.ReadFile(path)
 
 	if err != nil {
 		return nil, fmt.Errorf("Error in opning hiding file")
 	}
 
-	return file, nil
+	return data_stream, nil
 
 }
 func HideCapacity(path string) (int, error) {

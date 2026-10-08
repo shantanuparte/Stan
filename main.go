@@ -20,16 +20,16 @@ func main() {
 
 	img_size := ImgCapacity(img)
 
-	// hide_file, err := LoadHideFile(*hide_path)
-	// if err != nil {
-	// 	fmt.Printf("Error: %v\n", err)
-	// 	return
+	hide_file_stream, err := LoadHideFile(*hide_path)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
 
-	// }
+	}
 
 	hide_capacity, err := HideCapacity(*hide_path)
 	if err != nil {
-		fmt.Printf("Error: %v\n",err)
+		fmt.Printf("Error: %v\n", err)
 		return
 	}
 
@@ -41,5 +41,10 @@ func main() {
 
 	fmt.Println("This works")
 
+	fmt.Println(hide_file_stream)
+	fmt.Println(string(hide_file_stream))
+
+	Encoding(img, hide_file_stream)
+	
 
 }
