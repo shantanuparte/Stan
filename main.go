@@ -14,6 +14,7 @@ func main() {
 	file_path := flag.String("path", "", "The image to hide") //pointer return karlay
 	hide_path := flag.String("hide", "", "The file to hide in image")
 	output_path := flag.String("output", "output.png", "The name of the output file")
+	output_decode := flag.String("deout", "", "The file type")
 
 	flag.Parse()
 
@@ -23,15 +24,22 @@ func main() {
 			fmt.Println("You should fill the \"path\" and \"hide\" value")
 			return
 		}
-		handleEncodee(*hide_path, *file_path, *output_path)
+		handleEncodee(*file_path, *hide_path, *output_path)
 
 	case "decode":
 		if *file_path == "" {
-			fmt.Println("The file")
+			fmt.Println("The file must be filled")
+			return
 		}
-		hanldeDeocde(*file_path, *output_path)
+		hanldeDeocde(*file_path, *output_decode)
+
+	default:
+		fmt.Printf("Invaid mode. use \"encode\" or \"deconde\"")
+		return
 
 	}
+
+	
 
 }
 
@@ -83,16 +91,15 @@ func handleEncodee(file_path, hide_path, output_path string) {
 		return
 	}
 
-	can := CheckIfItFits(img_size, hide_capacity)
+	can := CheckIfItFits(img_size, hide_capacity+8)
 	if can != true {
 		fmt.Println("It Doesn't fit in the image")
 		return
 	}
 
-	fmt.Println("This works")
+	fmt.Println("Encoding file into image...")
 
-	fmt.Println(hide_file_stream)
-	fmt.Println(string(hide_file_stream))
+	
 
 	output, err := os.Create(output_path)
 	if err != nil {

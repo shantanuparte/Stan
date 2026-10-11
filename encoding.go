@@ -78,11 +78,12 @@ func Decoder(img *image.NRGBA) ([]byte, error) {
 
 			for _, value := range channel {
 				bit := value & 0b11
-				bite := (bite << 2) | bit
+				bite = (bite << 2) | bit
 				count += 2
 				if count == 8 {
 					extracted = append(extracted, bite)
 					count = 0
+					bite = 0
 				}
 
 			}

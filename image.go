@@ -21,7 +21,7 @@ func LoadImgage(path string) (*image.NRGBA, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Error in decoding image")
 	}
-
+ 
 	rgba := image.NewNRGBA(img.Bounds())
 
 	draw.Draw(rgba, rgba.Bounds(), img, img.Bounds().Min, draw.Src)
