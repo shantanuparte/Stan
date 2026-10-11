@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image/png"
 	"os"
 )
 
@@ -47,12 +48,20 @@ func main() {
 	fmt.Println(string(hide_file_stream))
 
 	output, err := os.Create(*output_path)
-	if output != nil {
+	if err != nil {
 		return
 	}
+	defer output.Close()
     
-
+	
 	Encoding(img, hide_file_stream)
+
+	
+	if err =  png.Encode(output, img); err != nil{
+		fmt.Println("Error in image encoding")
+		return;
+	}
+
 	
 
 }
