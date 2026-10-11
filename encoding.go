@@ -4,7 +4,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"image"
-	"strconv"
 )
 
 func Encoding(img *image.NRGBA, data []byte) {
@@ -60,18 +59,18 @@ func Encoding(img *image.NRGBA, data []byte) {
 
 }
 
-func Decoder(img *image.NRGBA) (byte, error) {
+func Decoder(img *image.NRGBA) ([]byte, error) {
 
 	bounds := img.Bounds()
 
-	height, width := bounds.Bounds().Dy(), bounds.Bounds().Dx()
+	height, width := bounds.Dy(), bounds.Dx()
 
 	extracted := make([]byte, 0, height*width*3)
 	var bite byte
 	count := 0
 
-	for x := 0; x < height; x++ {
-		for y := 0; y < width; y++ {
+	for y := 0; y < height; y++ {
+		for x := 0; x < width; x++ {
 
 			pixel := img.NRGBAAt(x, y)
 
@@ -79,7 +78,7 @@ func Decoder(img *image.NRGBA) (byte, error) {
 
 			for _, value := range channel {
 				bit := value & 0b11
-				bite := (bite << count) | bit
+				bite := (bite << 2) | bit
 				count += 2
 				if count == 8 {
 					extracted = append(extracted, bite)
@@ -92,15 +91,19 @@ func Decoder(img *image.NRGBA) (byte, error) {
 	}
 
 	if len(extracted) < 8 {
-		return 0, fmt.Errorf("Bro it's too low lenght lol")
+		return nil, fmt.Errorf("Bro it's too low lenght lol")
 	}
 
 	if string(extracted[0:4]) != "STAN" {
-		return 0, fmt.Errorf("Not stan")
+		return nil, fmt.Errorf("Not stan")
 	}
 
-	
+	size := binary.BigEndian.Uint32(extracted[4:8])
 
-	return extracted[8:], nil
+	if uint32(len(extracted)) < 8+size {
+		return nil, fmt.Errorf("payload is incomplete")
+	}
+
+	return extracted[8:8+size], nil
 
 }
