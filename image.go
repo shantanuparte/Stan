@@ -26,12 +26,6 @@ func LoadImgage(path string) (*image.NRGBA, error) {
 
 	draw.Draw(rgba, rgba.Bounds(), img, img.Bounds().Min, draw.Src)
 
-	color := rgba.NRGBAAt(0, 0)
-	fmt.Println(color.R)
-	fmt.Println(color.B)
-	fmt.Println(color.G)
-	fmt.Println(color.A)
-
 	return rgba, nil
 
 }

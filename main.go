@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -10,6 +11,7 @@ func main() {
 
 	file_path := flag.String("path", "", "The image to hide") //pointer return karlay
 	hide_path := flag.String("hide", "", "The file to hide in image")
+	output_path := flag.String("output","output.png","The name of the output file")
 	flag.Parse()
 
 	img, err := LoadImgage(*file_path)
@@ -17,7 +19,7 @@ func main() {
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
-
+	
 	img_size := ImgCapacity(img)
 
 	hide_file_stream, err := LoadHideFile(*hide_path)
@@ -44,7 +46,17 @@ func main() {
 	fmt.Println(hide_file_stream)
 	fmt.Println(string(hide_file_stream))
 
+	output, err := os.Create(*output_path)
+	if output != nil {
+		return
+	}
+    
+
 	Encoding(img, hide_file_stream)
 	
 
 }
+
+
+
+
