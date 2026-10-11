@@ -2,6 +2,8 @@
 ### A Image Steganography Tool
 Stan is a tool that hides files in png images. I replaces 2 LSB's.
 
+![Image](images/stan.png)
+
 ## Features
 - Hide files inside PNG image
 - Checks if it fits or not
@@ -12,11 +14,11 @@ Stan is a tool that hides files in png images. I replaces 2 LSB's.
 
 You can direcly download the binaries 
 
-[Downlaod for Linux]()
+[Downlaod for Linux](https://github.com/shantanuparte/Stan/releases/download/v1.0.0/stan)
 
 for Windows
 
-[Download for Windows]()
+[Download for Windows](https://github.com/shantanuparte/Stan/releases/download/v1.0.0/stan.exe)
 
 ## Build for yourself
 
@@ -31,7 +33,10 @@ go build -o stan .
 ```
 
 ## Usage 
-Stan has 2 modes: encode and decode
+You can also use ```./stan --help```
+
+Stan has 2 modes: encode and decode 
+
 
 1.Encode: Hide the file inside the image
 
